@@ -1,3 +1,10 @@
+/**
+ * @class LocalStorage
+ * @description TypeScript class for managing local storage data.
+ * @author Sebastian Inman <sebastian@nicindustries.com>
+ * @copyright NIC Industries 2020
+ */
+
 export default class LocalStorage {
 
   /**

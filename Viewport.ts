@@ -1,3 +1,11 @@
+/**
+ * @class Viewport
+ * @description TypeScript methods for interacting with the viewport.
+ * @author Sebastian Inman <sebastian@nicindustries.com>
+ * @copyright NIC Industries 2020
+ * @constructor
+ */
+
 export default {
 
 

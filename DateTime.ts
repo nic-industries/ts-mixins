@@ -1,3 +1,11 @@
+/**
+ * @class DateTime
+ * @description TypeScript class for validating input values.
+ * @author Sebastian Inman <sebastian@nicindustries.com>
+ * @copyright NIC Industries 2020
+ * @constructor
+ */
+
 export default class DateTime {
 
   public now: Date;
@@ -12,7 +20,7 @@ export default class DateTime {
   /**
    * @method DateTime.TimeRemaining
    * @description Calculates the amount of time remaining between two dates.
-   * @param future
+   * @param future <Date>
    * @return boolean | object
    */
 

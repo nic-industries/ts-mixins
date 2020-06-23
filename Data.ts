@@ -1,6 +1,8 @@
 /**
  * @class Data
  * @description TypeScript class for manipulating data objects.
+ * @author Sebastian Inman <sebastian@nicindustries.com>
+ * @copyright NIC Industries 2020
  */
 
 export default class Data {

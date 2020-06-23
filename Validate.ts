@@ -1,3 +1,11 @@
+/**
+ * @class Validate
+ * @description TypeScript class for validating input values.
+ * @author Sebastian Inman <sebastian@nicindustries.com>
+ * @copyright NIC Industries 2020
+ * @constructor
+ */
+
 export default class Validate {
 
   input: any = {};
@@ -65,31 +73,21 @@ export default class Validate {
 
   CreditCard() {
 
-    /**
-     * Only allow digit characters.
-     */
+    // Only allow digits.
     let disallowedChars = /[^\d]/gm;
 
-    /**
-     * All Visa card numbers start with a 4.
-     * New cards have 16 digits. Old cards have 13.
-     */
+    // All Visa card numbers start with a 4.
+    // New cards have 16 digits. Old cards have 13.
     let visaPattern = /^4[0-9]{12}(?:[0-9]{3})?$/gm;
 
-    /**
-     * MasterCard numbers either start with the numbers 51 through 55
-     * or with the numbers 2221 through 2720. All have 16 digits.
-     */
+    // MasterCard numbers either start with the numbers 51 through 55
+    // or with the numbers 2221 through 2720. All have 16 digits.
     let masterCardPattern = /^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$/gm;
 
-    /**
-     * American Express card numbers start with 34 or 37 and have 15 digits.
-     */
+    // American Express card numbers start with 34 or 37 and have 15 digits.
     let americanExpressPattern = /^3[47][0-9]{13}$/gm;
 
-    /**
-     * Discover card numbers begin with 6011 or 65. All have 16 digits.
-     */
+    // Discover card numbers begin with 6011 or 65. All have 16 digits.
     let discoverPattern = /^6(?:011|5[0-9]{2})[0-9]{12}$/gm;
 
     // Remove unwanted characters from the phone number string.
