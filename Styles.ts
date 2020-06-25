@@ -7,8 +7,6 @@
 
 export default class Styles {
 
-  root: any = getComputedStyle(document.documentElement);
-
 
   /**
    * @method Styles.RootVarExists
@@ -17,9 +15,9 @@ export default class Styles {
    * @returns boolean
    */
 
-  public RootVarExists(property: string) {
+  public static RootVarExists(property: string) {
 
-    return this.root.getPropertyValue(property) || false;
+    return getComputedStyle(document.documentElement).getPropertyValue(property) || false;
 
   }
 
@@ -31,9 +29,9 @@ export default class Styles {
    * @returns boolean
    */
 
-  public RootVar(property: string) {
+  public static RootVar(property: string) {
 
-    return this.root.getPropertyValue(property) || undefined;
+    return getComputedStyle(document.documentElement).getPropertyValue(property) || undefined;
 
   }
 
