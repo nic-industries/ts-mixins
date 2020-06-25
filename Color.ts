@@ -12,12 +12,12 @@ export default class Color {
    * @method Color.Format
    * @description Determines the format of the color.
    * @param color
-   * @constructor
+   * @returns string|undefined
    */
 
-  static Format(color: any) {
+  public static Format(color: any) {
 
-    let format: string = undefined;
+    let format: string|undefined = undefined;
 
     if(typeof color == "string") {
       if(String(color).startsWith("rgba(")) format = "rgba";
@@ -40,30 +40,28 @@ export default class Color {
    * @description Converts the color into the requested format.
    * @param color
    * @param format
-   * @constructor
+   * @returns string|number[]
    */
 
-  static Convert(color: any, format: "rgba"|"rgb"|"hex") {
+  public static Convert(color: any, format: "rgba"|"rgb"|"hex") {
 
     if(typeof color == "string") {
 
       if(String(color).startsWith("rgba(")) {
-        color = Color.StringToRGBA(color);
-        if(format == "rgba") color = Color.StringToRGBA(color);
-        if(format == "rgb")  color = Color.RGBAToRGB(color);
-        if(format == "hex")  color = Color.RGBAToHex(color);
+        color = Color.STR_RGBA(color);
+        if(format == "rgb")  color = Color.RGBA_RGB(color);
+        if(format == "hex")  color = Color.RGBA_HEX(color);
       }
 
       if(String(color).startsWith("rgb(")) {
-        color = Color.StringToRGB(color);
-        if(format == "rgba") color = Color.RGBToRGBA(color);
-        if(format == "rgb")  color = Color.StringToRGB(color);
-        if(format == "hex")  color = Color.RGBToHex(color);
+        color = Color.STR_RGB(color);
+        if(format == "rgba") color = Color.RGB_RGBA(color);
+        if(format == "hex")  color = Color.RGB_HEX(color);
       }
 
       if(String(color).startsWith("#")) {
-        if(format == "rgba") color = Color.HexToRGBA(color);
-        if(format == "rgb")  color = Color.HexToRGB(color);
+        if(format == "rgba") color = Color.HEX_RGBA(color);
+        if(format == "rgb")  color = Color.HEX_RGB(color);
       }
 
     }
@@ -71,13 +69,13 @@ export default class Color {
     if(Array.isArray(color)) {
 
       if (Object.keys(color).length == 4) {
-        if(format == "rgb") color = Color.RGBAToRGB(color);
-        if(format == "hex") color = Color.RGBAToHex(color);
+        if(format == "rgb") color = Color.RGBA_RGB(color);
+        if(format == "hex") color = Color.RGBA_HEX(color);
       }
 
       if (Object.keys(color).length == 3) {
-        if(format == "rgba") color = Color.RGBToRGBA(color);
-        if(format == "hex")  color = Color.RGBToHex(color);
+        if(format == "rgba") color = Color.RGB_RGBA(color);
+        if(format == "hex")  color = Color.RGB_HEX(color);
       }
 
     }
@@ -88,13 +86,13 @@ export default class Color {
 
 
   /**
-   * @method Color.StringToRGB
+   * @method Color.STR_RGB
    * @description Converts a color string to RGB format.
    * @param color
-   * @constructor
+   * @returns number[]
    */
 
-  static StringToRGB(color: string) {
+  private static STR_RGB(color: string) {
 
     color = color.replace("rgb(", "");
     color = color.replace(")",    "");
@@ -109,13 +107,13 @@ export default class Color {
 
 
   /**
-   * @method Color.StringToRGBA
+   * @method Color.STR_RGBA
    * @description Converts a color string to RGBA format.
    * @param color
-   * @constructor
+   * @returns number[]
    */
 
-  static StringToRGBA(color: string) {
+  private static STR_RGBA(color: string) {
 
     color = color.replace("rgba(", "");
     color = color.replace(")",     "");
@@ -130,13 +128,13 @@ export default class Color {
 
 
   /**
-   * @method Color.HexToRGB
+   * @method Color.HEX_RGB
    * @description Converts a hexadecimal color to RGB format.
    * @param hex
-   * @constructor
+   * @returns number[]
    */
 
-  static HexToRGB(hex: string) {
+  private static HEX_RGB(hex: string) {
 
     let rgb: number[] = [0, 0, 0];
 
@@ -160,13 +158,13 @@ export default class Color {
 
 
   /**
-   * @method Color.RGBToHex
+   * @method Color.RGB_HEX
    * @description Converts an RGB number to hexadecimal format.
    * @param rgb
-   * @constructor
+   * @returns string
    */
 
-  static RGBToHex(rgb: number[]) {
+  private static RGB_HEX(rgb: number[]) {
 
     let r: string = rgb[0].toString(16);
     let g: string = rgb[1].toString(16);
@@ -182,43 +180,43 @@ export default class Color {
 
 
   /**
-   * @method Color.HexToRGBA
+   * @method Color.HEX_RGBA
    * @description Converts a hexadecimal color to RGBA format.
    * @param hex
    * @param alpha
-   * @constructor
+   * @returns number[]
    */
 
-  static HexToRGBA(hex: string, alpha: number = 1) {
+  private static HEX_RGBA(hex: string, alpha: number = 1) {
 
-    return [...Color.HexToRGB(hex), alpha];
+    return [...Color.HEX_RGB(hex), alpha];
 
   }
 
 
   /**
-   * @method Color.RGBAToHex
+   * @method Color.RGBA_HEX
    * @description Converts an RGBA number to hexadecimal format.
    * @param rgba
-   * @constructor
+   * @returns string
    */
 
-  static RGBAToHex(rgba: number[]) {
+  private static RGBA_HEX(rgba: number[]) {
 
-    return Color.RGBToHex(Color.RGBAToRGB(rgba));
+    return Color.RGB_HEX(Color.RGBA_RGB(rgba));
 
   }
 
 
   /**
-   * @method Color.RGBToRGBA
+   * @method Color.RGB_RGBA
    * @description Converts an RGB number to RGBA format.
    * @param rgb
    * @param alpha
-   * @constructor
+   * @returns number[]
    */
 
-  static RGBToRGBA(rgb: number[], alpha: number = 1) {
+  private static RGB_RGBA(rgb: number[], alpha: number = 1) {
 
     return [...rgb, alpha];
 
@@ -226,13 +224,13 @@ export default class Color {
 
 
   /**
-   * @method Color.RGBAToRGB
+   * @method Color.RGBA_RGB
    * @description Converts an RGBA color to RGB format.
    * @param rgba
-   * @constructor
+   * @returns number[]
    */
 
-  static RGBAToRGB(rgba: number[]) {
+  private static RGBA_RGB(rgba: number[]) {
 
     return [rgba[0], rgba[1], rgba[2]];
 
@@ -244,10 +242,10 @@ export default class Color {
    * @description Determines the "brightness" of a color.
    * @reference http://alienryderflex.com/hsp.html
    * @param color
-   * @constructor
+   * @returns "light" | "dark"
    */
 
-  static Brightness(color: any) {
+  private static Brightness(color: any) {
 
     let rgb = Color.Convert(color, "rgb");
 
@@ -269,7 +267,7 @@ export default class Color {
    * @returns boolean
    */
 
-  static IsDark(color: any) {
+  public static IsDark(color: any) {
 
     return Color.Brightness(color) == "dark";
 
@@ -283,7 +281,7 @@ export default class Color {
    * @returns boolean
    */
 
-  static IsLight(color: any) {
+  public static IsLight(color: any) {
 
     return Color.Brightness(color) == "light";
 
