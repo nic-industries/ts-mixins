@@ -234,4 +234,28 @@ export default class Color {
 
   }
 
+
+  /**
+   * @method Color.IsDark
+   * @description Determines if the color is dark.
+   * @param color
+   * @returns boolean
+   */
+
+  static IsDark(color: any) {
+    return Color.Brightness(color) == "dark";
+  }
+
+
+  /**
+   * @method Color.IsLight
+   * @description Determines if the color is light.
+   * @param color
+   * @returns boolean
+   */
+
+  static IsLight(color: any) {
+    return Color.Brightness(color) == "light";
+  }
+
 }
