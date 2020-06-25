@@ -10,13 +10,40 @@ export default class Color {
 
   /**
    * @method Color.Format
-   * @description Determines the format of a color.
+   * @description Determines the format of the color.
+   * @param color
+   * @constructor
+   */
+
+  static Format(color: any) {
+
+    let format: string = undefined;
+
+    if(typeof color == "string") {
+      if(String(color).startsWith("rgba(")) format = "rgba";
+      if(String(color).startsWith("rgb("))  format = "rgb";
+      if(String(color).startsWith("#"))     format = "hex";
+    }
+
+    if(Array.isArray(color)) {
+      if (Object.keys(color).length == 4) format = "rgba";
+      if (Object.keys(color).length == 3) format = "rgb";
+    }
+
+    return format;
+
+  }
+
+
+  /**
+   * @method Color.Convert
+   * @description Converts the color into the requested format.
    * @param color
    * @param format
    * @constructor
    */
 
-  static Format(color: any, format: "rgba"|"rgb"|"hex") {
+  static Convert(color: any, format: "rgba"|"rgb"|"hex") {
 
     if(typeof color == "string") {
 
@@ -119,7 +146,9 @@ export default class Color {
       rgb[0] = +`0x${hex[0]}${hex[0]}`;
       rgb[1] = +`0x${hex[1]}${hex[1]}`;
       rgb[2] = +`0x${hex[2]}${hex[2]}`;
-    }else if(hex.length == 6) {
+    }
+
+    if(hex.length == 6) {
       rgb[0] = +`0x${hex[0]}${hex[1]}`;
       rgb[1] = +`0x${hex[2]}${hex[3]}`;
       rgb[2] = +`0x${hex[4]}${hex[5]}`;
@@ -176,9 +205,7 @@ export default class Color {
 
   static RGBAToHex(rgba: number[]) {
 
-    let rgb: any = Color.RGBAToRGB(rgba);
-
-    return Color.RGBToHex(rgb);
+    return Color.RGBToHex(Color.RGBAToRGB(rgba));
 
   }
 
@@ -222,7 +249,7 @@ export default class Color {
 
   static Brightness(color: any) {
 
-    let rgb = Color.Format(color, "rgb");
+    let rgb = Color.Convert(color, "rgb");
 
     let r: number = 0.299 * (rgb[0] * rgb[0]);
     let g: number = 0.587 * (rgb[1] * rgb[1]);
@@ -243,7 +270,9 @@ export default class Color {
    */
 
   static IsDark(color: any) {
+
     return Color.Brightness(color) == "dark";
+
   }
 
 
@@ -255,7 +284,9 @@ export default class Color {
    */
 
   static IsLight(color: any) {
+
     return Color.Brightness(color) == "light";
+
   }
 
 }
