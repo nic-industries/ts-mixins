@@ -20,6 +20,7 @@ export default class Color {
     let format: string|undefined = undefined;
 
     if(typeof color == "string") {
+      color = color.replace(" ", "");
       if(String(color).startsWith("rgba(")) format = "rgba";
       if(String(color).startsWith("rgb("))  format = "rgb";
       if(String(color).startsWith("#"))     format = "hex";
@@ -47,6 +48,8 @@ export default class Color {
   public static Convert(color: any, format: "rgba"|"rgb"|"hex", alpha: number = 1) {
 
     if(typeof color == "string") {
+
+      color = color.replace(" ", "");
 
       if(String(color).startsWith("rgba(")) {
         color = Color.STR_RGBA(color);
