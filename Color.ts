@@ -40,10 +40,11 @@ export default class Color {
    * @description Converts the color into the requested format.
    * @param color
    * @param format
+   * @param alpha
    * @returns string|number[]
    */
 
-  public static Convert(color: any, format: "rgba"|"rgb"|"hex") {
+  public static Convert(color: any, format: "rgba"|"rgb"|"hex", alpha: number = 1) {
 
     if(typeof color == "string") {
 
@@ -55,12 +56,12 @@ export default class Color {
 
       if(String(color).startsWith("rgb(")) {
         color = Color.STR_RGB(color);
-        if(format == "rgba") color = Color.RGB_RGBA(color);
+        if(format == "rgba") color = Color.RGB_RGBA(color, alpha);
         if(format == "hex")  color = Color.RGB_HEX(color);
       }
 
       if(String(color).startsWith("#")) {
-        if(format == "rgba") color = Color.HEX_RGBA(color);
+        if(format == "rgba") color = Color.HEX_RGBA(color, alpha);
         if(format == "rgb")  color = Color.HEX_RGB(color);
       }
 
@@ -74,7 +75,7 @@ export default class Color {
       }
 
       if (Object.keys(color).length == 3) {
-        if(format == "rgba") color = Color.RGB_RGBA(color);
+        if(format == "rgba") color = Color.RGB_RGBA(color, alpha);
         if(format == "hex")  color = Color.RGB_HEX(color);
       }
 
