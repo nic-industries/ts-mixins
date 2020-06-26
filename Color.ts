@@ -21,6 +21,7 @@ export default class Color {
 
     if(typeof color == "string") {
       color = color.replace(" ", "");
+      if(String(color).startsWith("var(") || String(color).startsWith("--color")) format = "var";
       if(String(color).startsWith("rgba(")) format = "rgba";
       if(String(color).startsWith("rgb("))  format = "rgb";
       if(String(color).startsWith("#"))     format = "hex";
@@ -249,7 +250,7 @@ export default class Color {
    * @returns "light" | "dark"
    */
 
-  private static Brightness(color: any) {
+  public static Brightness(color: any) {
 
     let rgb = Color.Convert(color, "rgb");
 
