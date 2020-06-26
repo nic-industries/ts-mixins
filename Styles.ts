@@ -17,7 +17,7 @@ export default class Styles {
 
   public static RootVarExists(property: string) {
 
-    return getComputedStyle(document.documentElement).getPropertyValue(property) || false;
+    return !!getComputedStyle(document.documentElement).getPropertyValue(property);
 
   }
 
@@ -26,7 +26,7 @@ export default class Styles {
    * @method Styles.RootVar
    * @description Returns the requested CSS root variable value.
    * @param property
-   * @returns boolean
+   * @returns string
    */
 
   public static RootVar(property: string) {
