@@ -18,6 +18,20 @@ export default class DateTime {
 
 
   /**
+   * @method DateTime.TimeOfDay
+   * @description Determines the time of day relative to the users time.
+   * @return "morning" | "afternoon" | "evening"
+   */
+
+  public TimeOfDay() {
+
+    const hour = this.now.getHours();
+    return hour < 12 ? "morning" : (hour < 18 ? "afternoon" : "evening");
+
+  }
+
+
+  /**
    * @method DateTime.TimeRemaining
    * @description Calculates the amount of time remaining between two dates.
    * @param future <Date>
