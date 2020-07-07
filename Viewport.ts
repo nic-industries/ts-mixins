@@ -16,7 +16,9 @@ export default {
    */
 
   Width() {
+
     return window.innerWidth || document.documentElement.clientWidth;
+
   },
 
 
@@ -27,7 +29,29 @@ export default {
    */
 
   Height() {
+
     return window.innerHeight || document.documentElement.clientHeight;
+
+  },
+
+
+  /**
+   * @method Viewport.ScrollPercentage
+   * @description Determines the percentage of the screen scrolled.
+   * @reference https://stackoverflow.com/a/8028584
+   * @return number
+   */
+
+  ScrollPercentage() {
+
+    let h = document.documentElement;
+    let b = document.body;
+
+    let st = 'scrollTop';
+    let sh = 'scrollHeight';
+
+    return (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
+
   },
 
 
@@ -39,6 +63,7 @@ export default {
    */
 
   ElementIsVisible(element: any) {
+
     if(!element) return false;
     let bounds = element.getBoundingClientRect();
 
@@ -46,6 +71,7 @@ export default {
       bounds.top <= this.Height() &&
       bounds.left <= this.Width()
     );
+
   },
 
 
@@ -54,14 +80,34 @@ export default {
    * @description Scrolls the viewport to the provided position.
    * @param position
    * @param smooth
-   * @constructor
    */
 
   ScrollTo(position: number, smooth: boolean = false) {
+
     return window.scroll({
       ...{top: position},
       ...smooth ? {behavior: "smooth"} : {}
     });
+
+  },
+
+
+  /**
+   * @method Viewport.ScrollToElement
+   * @description Scrolls the viewport to the provided element.
+   * @param elementID
+   * @param smooth
+   */
+
+  ScrollToElement(elementID: string, smooth: boolean = true) {
+
+    let element = document.getElementById(elementID);
+
+    if(!element) return false;
+    let bounds = element.getBoundingClientRect();
+
+    this.ScrollTo(bounds.top, smooth);
+
   }
 
 }
