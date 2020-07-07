@@ -13,11 +13,12 @@ export default class Data {
    * @description Merges two data objects together into one object.
    * @param map
    * @param data
-   * @constructor
    */
 
   static Merge(map: {}, data: {}) {
+
     return {...map, ...data};
+
   }
 
 
@@ -33,11 +34,13 @@ export default class Data {
    */
 
   static Filter(data: any, whitelist: any) {
+
     return Object.keys(data).filter(key =>
       whitelist.includes(key)).reduce((obj: {}, key: string) => {
       obj[key] = data[key];
       return obj;
     }, {});
+
   }
 
 }
