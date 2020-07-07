@@ -10,9 +10,25 @@ export default class DateTime {
 
   public now: Date;
 
-  constructor() {
+  constructor(date: Date) {
 
-    this.now = new Date();
+    this.now = date ? date : new Date();
+
+  }
+
+
+  /**
+   * @method DateTime.Format
+   * @description Formats the current date into a human-readable string.
+   * @param style
+   * @param locale
+   * @return string "Formatted date string"
+   */
+
+  public Format(style: "full"|"long"|"medium"|"short" = "full", locale = "en-US") {
+
+    let options: any = {dateStyle: style};
+    return new Intl.DateTimeFormat(locale, options).format(this.now);
 
   }
 
