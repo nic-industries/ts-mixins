@@ -1,6 +1,6 @@
 {
   "name": "@nic-industries/ts-mixins",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "A collection of TypeScript mixins",
   "repository": "git://github.com/nic-industries/ts-mixins.git",
   "publishConfig": { "registry": "https://npm.pkg.github.com/" },
