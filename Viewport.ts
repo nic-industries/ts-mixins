@@ -44,8 +44,8 @@ export default {
 
   ScrollPercentage() {
 
-    let h = document.documentElement;
-    let b = document.body;
+    let h: any = document.documentElement;
+    let b: any = document.body;
 
     let st = 'scrollTop';
     let sh = 'scrollHeight';
@@ -96,17 +96,25 @@ export default {
    * @method Viewport.ScrollToElement
    * @description Scrolls the viewport to the provided element.
    * @param elementID
+   * @param offset
    * @param smooth
    */
 
-  ScrollToElement(elementID: string, smooth: boolean = true) {
+  ScrollToElement(elementID: string, offset: boolean = true, smooth: boolean = true) {
 
     let element = document.getElementById(elementID);
 
     if(!element) return false;
     let bounds = element.getBoundingClientRect();
+    let position: number = bounds.top + window.scrollY;
 
-    this.ScrollTo(bounds.top, smooth);
+    if(offset) {
+      let headerHeight: any = getComputedStyle(document.documentElement).getPropertyValue('--header-height');
+      headerHeight = parseInt(headerHeight.replace('px', ''));
+      position -= headerHeight;
+    }
+
+    this.ScrollTo(position, smooth);
 
   }
 
