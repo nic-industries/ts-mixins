@@ -4,15 +4,16 @@
  * @author Sebastian Inman <sebastian@nicindustries.com>
  * @copyright NIC Industries 2020
  * @constructor
+ * @param date
  */
 
 export default class DateTime {
 
   public now: Date;
 
-  constructor(date: Date) {
+  constructor(date?: Date) {
 
-    this.now = date ? date : new Date();
+    this.now = date || new Date();
 
   }
 
@@ -20,14 +21,15 @@ export default class DateTime {
   /**
    * @method DateTime.Format
    * @description Formats the current date into a human-readable string.
+   * @reference https://wesbos.com/tip/intl-datetimeformat-date-formatting
    * @param style
    * @param locale
-   * @return string "Formatted date string"
+   * @return Formatted date string
    */
 
   public Format(style: "full"|"long"|"medium"|"short" = "full", locale = "en-US") {
 
-    let options: any = {dateStyle: style};
+    let options: any = { dateStyle: style };
     return new Intl.DateTimeFormat(locale, options).format(this.now);
 
   }
